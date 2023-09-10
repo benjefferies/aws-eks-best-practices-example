@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  helm-repo-add:
+    cmds:
+      - helm repo add eks https://aws.github.io/eks-charts
+      - helm repo update
