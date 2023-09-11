@@ -96,6 +96,15 @@ module "eks_blueprints_addons" {
     }
   }
 
+  aws_for_fluentbit = {
+    set = [
+      {
+        name  = "cloudWatchLogs.autoCreateGroup"
+        value = "true"
+      }
+    ]
+  }
+
   # Add-ons
   enable_aws_load_balancer_controller = true
   # enable_cluster_proportional_autoscaler = true Enable to scale replicas based on the number of nodes in a cluster
