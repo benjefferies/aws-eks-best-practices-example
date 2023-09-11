@@ -41,20 +41,23 @@ service:
   port: 80
 
 ingress:
-  enabled: false
+  enabled: true
   className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations:
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
+    alb.ingress.kubernetes.io/certificate-arn: '${var.cluster_ssl_certificate_arn}'
+    external-dns.alpha.kubernetes.io/hostname: frontend.my-project-dev.echosoft.uk
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    kubernetes.io/ingress.class: "alb"
   hosts:
-    - host: chart-example.local
+    - host: frontend.my-project-dev.echosoft.uk
       paths:
         - path: /
           pathType: ImplementationSpecific
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  tls:
+   - secretName: frontend.my-project-dev.echosoft.uk-tls
+     hosts:
+       - frontend.my-project-dev.echosoft.uk
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
