@@ -5,3 +5,15 @@ tasks:
     cmds:
       - helm repo add eks https://aws.github.io/eks-charts
       - helm repo update
+  
+  create-argocd-applications:
+    cmds:
+    - |
+      set -e
+      for file in deployments/argocd/*; do
+        kubectl apply -f $file
+      done
+  
+  apply-infrastructure:
+    cmds:
+      - terragrunt run-all {{or .CLI_ARGS "dev"}} --terragrunt-working-dir infrastructure/envs
