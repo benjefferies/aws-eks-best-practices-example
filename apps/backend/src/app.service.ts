@@ -9,7 +9,7 @@ export class AppService {
     return this.messages;
   }
 
-  addMessage(message: string): void {
+  addMessage(message: string): string[] {
     this.messages.push(message);
     return this.messages
   }

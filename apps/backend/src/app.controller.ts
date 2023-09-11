@@ -13,6 +13,5 @@ export class AppController {
   @Post()
   addMessage(@Body() payload: {message: string}): string[] {  
     return this.appService.addMessage(payload.message);
-    return this.appService.getMessages()
   }
 }
