@@ -27,10 +27,12 @@ EXPOSE 80
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://localhost:80 || exit 1
 
 # Create a new user for the container
-RUN adduser --disabled-password --gecos "" nodeuser
+RUN adduser --disabled-password --gecos "" nginxuser
 
 # Set the user for the container
 USER nodeuser
+
+RUN chown -R nginxuser:nginxuser /var/cache/nginx /var/run /var/log/nginx /var/cache/nginx/client_temp
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
