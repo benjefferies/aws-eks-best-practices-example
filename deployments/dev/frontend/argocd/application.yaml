@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: backend
+  name: frontend
   namespace: argocd
 spec:
   source:
     repoURL: https://github.com/benjefferies/devops-aws-eks-best-practices-example.git
     targetRevision: main
-    path: deployments/dev/backend
+    path: deployments/dev/frontend
 
   project: my-project
 

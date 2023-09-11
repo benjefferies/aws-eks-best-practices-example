@@ -23,8 +23,8 @@ spec:
 
   # Deny all cluster-scoped resources from being created, except for Namespace
   clusterResourceWhitelist:
-  - group: ''
-    kind: Namespace
+  - group: '*'
+    kind: '*'
 
   # Allow all namespaced-scoped resources to be created, except for ResourceQuota, LimitRange, NetworkPolicy
   namespaceResourceBlacklist:
@@ -37,10 +37,8 @@ spec:
 
   # Deny all namespaced-scoped resources from being created, except for Deployment and StatefulSet
   namespaceResourceWhitelist:
-  - group: 'apps'
-    kind: Deployment
-  - group: 'apps'
-    kind: StatefulSet
+  - group: '*'
+    kind: '*'
 
   # Enables namespace orphaned resource monitoring.
   orphanedResources:
