@@ -28,8 +28,27 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 3001
+
+ingress:
+  enabled: true
+  className: ""
+  annotations:
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
+    alb.ingress.kubernetes.io/certificate-arn: 'arn:aws:acm:eu-west-1:382324672682:certificate/79377964-d91d-4659-9cbd-4625ae49d2e7'
+    external-dns.alpha.kubernetes.io/hostname: backend.my-project-dev.echosoft.uk
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    kubernetes.io/ingress.class: "alb"
+  hosts:
+    - host: backend.my-project-dev.echosoft.uk
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+   - secretName: backend.my-project-dev.echosoft.uk-tls
+     hosts:
+       - backend.my-project-dev.echosoft.uk
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
