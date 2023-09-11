@@ -36,7 +36,7 @@ ingress:
   className: ""
   annotations:
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
-    alb.ingress.kubernetes.io/certificate-arn: '${var.cluster_ssl_certificate_arn}'
+    alb.ingress.kubernetes.io/certificate-arn: 'arn:aws:acm:eu-west-1:382324672682:certificate/79377964-d91d-4659-9cbd-4625ae49d2e7'
     external-dns.alpha.kubernetes.io/hostname: frontend.my-project-dev.echosoft.uk
     alb.ingress.kubernetes.io/scheme: internet-facing
     kubernetes.io/ingress.class: "alb"
