@@ -43,7 +43,7 @@ ingress:
   hosts:
     - host: frontend.my-project-dev.echosoft.uk
       paths:
-        - path: /
+        - path: /*
           pathType: ImplementationSpecific
   tls:
    - secretName: frontend.my-project-dev.echosoft.uk-tls
