@@ -30,7 +30,7 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl 
 RUN adduser --disabled-password --gecos "" nginxuser
 
 # Set the user for the container
-USER nodeuser
+USER nginxuser
 
 RUN chown -R nginxuser:nginxuser /var/cache/nginx /var/run /var/log/nginx /var/cache/nginx/client_temp
 
