@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 @Injectable()
 export class AppService {
 
-  private messages: string[] = []
+  private messages: string[] = []  // Change to be 
 
   getMessages(): string[] {
     return this.messages;
