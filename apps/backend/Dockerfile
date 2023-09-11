@@ -24,5 +24,7 @@ RUN adduser --disabled-password --gecos "" nodeuser
 # Set the user for the container
 USER nodeuser
 
+EXPOSE 3001
+
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]
