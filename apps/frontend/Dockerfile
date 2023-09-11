@@ -16,6 +16,8 @@ COPY . .
 # Creates a "dist" folder with the production build
 RUN npm run build
 
+RUN chown -R nginxuser:nginxuser /var/cache/nginx /var/run /var/log/nginx /var/cache/nginx/client_temp
+
 FROM nginx:alpine
 
 # Copy the production build from the builder stage
@@ -31,8 +33,6 @@ RUN adduser --disabled-password --gecos "" nginxuser
 
 # Set the user for the container
 USER nginxuser
-
-RUN chown -R nginxuser:nginxuser /var/cache/nginx /var/run /var/log/nginx /var/cache/nginx/client_temp
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
