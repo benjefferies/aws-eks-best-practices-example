@@ -39,8 +39,11 @@ export default function Home() {
         {isLoading && <p>Loading...</p>}
         {data?.length > 0 &&
           data.map((message: string) => (
-            <div className="flex items-center border-b-2 border-gray-200 py-4 px-4">
-              <p key={message}>{message}</p>
+            <div
+              key={message}
+              className="flex items-center border-b-2 border-gray-200 py-4 px-4"
+            >
+              <p>{message}</p>
             </div>
           ))}
       </div>
