@@ -22,6 +22,18 @@ module "eks_blueprints_addons" {
 
   # ArgoCD
   argocd = {
+    argo_applications = {
+      frontend = {
+        repo_url = "https://github.com/benjefferies/devops-aws-eks-best-practices-example.git"
+        revision = "main"
+        path     = "deployments/backend/Chart.yaml"
+      }
+
+      backend = {
+        repo_url = "https://github.com/benjefferies/devops-aws-eks-best-practices-example.git"
+        revision = "main"
+        path     = "deployments/frontend/Chart.yaml"
+    }
     set_sensitive = [
       {
         name  = "configs.secret.argocdServerAdminPassword"
