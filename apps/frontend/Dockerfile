@@ -21,6 +21,8 @@ FROM nginx:alpine
 # Copy the production build from the builder stage
 COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
 
+COPY nginx.conf /etc/nginx/sites-enabled/default
+
 # Expose port 80
 EXPOSE 80
 
