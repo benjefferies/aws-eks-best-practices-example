@@ -1,5 +1,5 @@
 # Dockerfile for nextjs app
-FROM node:lts
+FROM node:lts as builder
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm install --loglevel verbose --maxsockets --fetch-retries 20
 
 # Bundle app source
 COPY . .
@@ -16,7 +16,15 @@ COPY . .
 # Creates a "dist" folder with the production build
 RUN npm run build
 
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://localhost:3000/health || exit 1
+FROM nginx:alpine
+
+# Copy the production build from the builder stage
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 CMD curl --fail http://localhost:80 || exit 1
 
 # Create a new user for the container
 RUN adduser --disabled-password --gecos "" nodeuser
@@ -24,5 +32,5 @@ RUN adduser --disabled-password --gecos "" nodeuser
 # Set the user for the container
 USER nodeuser
 
-# Start the server using the production build
-CMD [ "node", "dist/main.js" ]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

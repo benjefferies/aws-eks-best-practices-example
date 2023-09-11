@@ -1,15 +1,13 @@
-import { Inter } from "next/font/google";
 import { useState } from "react";
 import useSWR from "swr";
 import fetch from "unfetch";
 
-const inter = Inter({ subsets: ["latin"] });
-
 const fetcher = (url: string) =>
   fetch(url).then((r: fetch.IsomorphicResponse) => r.json());
+import "./App.css";
 
-export default function Home() {
-  const apiHost = process.env.NEXT_PUBLIC_API_HOST;
+function App() {
+  const apiHost = import.meta.env.VITE_API_HOST;
   const { isLoading, data, mutate } = useSWR(`${apiHost}/messages`, fetcher);
   const [newMessage, setNewMessage] = useState("");
 
@@ -30,7 +28,7 @@ export default function Home() {
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`flex min-h-screen flex-col items-center justify-between p-24`}
     >
       <div>
         <h1 className="text-4xl font-bold">Messages</h1>
@@ -69,3 +67,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default App;
