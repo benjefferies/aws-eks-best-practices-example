@@ -16,7 +16,7 @@ tasks:
   
   apply-infrastructure:
     vars:
-      ENV: {{default "dev" .ENV}}
-      COMMAND: {{default "apply" .COMMAND}}
+      ENV: '{{ .ENV | default "dev" }}'
+      COMMAND: '{{ .COMMAND | default "apply" }}'
     cmds:
-      - terragrunt run-all --terragrunt-non-interactive --terragrunt-working-dir=infrastructure/envs/${ENV} ${COMMAND}
+      - terragrunt run-all --terragrunt-non-interactive --terragrunt-working-dir=infrastructure/envs/{{ .ENV }} {{ .COMMAND }}
