@@ -19,4 +19,10 @@ tasks:
       ENV: '{{ .ENV | default "dev" }}'
       COMMAND: '{{ .COMMAND | default "apply" }}'
     cmds:
-      - terragrunt run-all --terragrunt-non-interactive --terragrunt-working-dir=infrastructure/envs/{{ .ENV }} {{ .COMMAND }}
+      - terragrunt run-all --terragrunt-working-dir=infrastructure/envs/{{ .ENV }} {{ .COMMAND }}
+    deps:
+      - helm-repo-add
+  
+  argocd-password:
+    cmds:
+      - terragrunt output -json -terragrunt-working-dir=infrastructure/envs/dev/eks-addons

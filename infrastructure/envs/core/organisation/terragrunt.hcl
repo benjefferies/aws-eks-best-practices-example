@@ -4,7 +4,7 @@ include {
 }
 
 terraform {
-  source = "../../..//modules/organisationalManagement"
+  source = "../../..//modules/organisation"
 }
 
 inputs = {
